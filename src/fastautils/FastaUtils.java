@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 lboat.
+ * Copyright 2018 J. Lucas Boatwright.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@ public class FastaUtils {
      */
     public static void main(String[] args) throws IOException {
         Fasta fasta = new Fasta(args[0]);
+        System.out.println(fasta.containsAmbiguous());
         fasta.toFile(args[1]);
     }
     

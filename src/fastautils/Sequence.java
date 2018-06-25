@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 lboat.
+ * Copyright 2018 J. Lucas Boatwright.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,27 +40,29 @@ public class Sequence {
     }// end toString method
     
     /**
-     * Returns counts for nucleotides (or N/-) in a sequence in an integer array
+     * Returns counts for nucleotides (or N/-/other) in a sequence in an integer array
      * Will count both lower or uppercase nucleotides
      * 
-     * @return integer array with [A,C,G,T,N,-] counts
+     * @return integer array with [A,C,G,T,N,-,other] counts
      */
     public int[] getNucleotideCount(){
         char[] string = this.sequence.toCharArray();
-        int[] counts = new int[6];
+        int[] counts = new int[7];
         for (char nucleotide: string){
             if ((nucleotide == 'A') || (nucleotide == 'a')){
                 counts[0] += 1;
             } else if ((nucleotide == 'C') || (nucleotide == 'c')){
                 counts[1] += 1;
             } else if ((nucleotide == 'G') || (nucleotide == 'g')){
-                counts[1] += 1;
+                counts[2] += 1;
             } else if ((nucleotide == 'T') || (nucleotide == 't')){
-                counts[1] += 1;
+                counts[3] += 1;
             } else if ((nucleotide == 'N') || (nucleotide == 'n')){
-                counts[1] += 1;
+                counts[4] += 1;
             } else if (nucleotide == '-'){
-                counts[1] += 1;
+                counts[5] += 1;
+            } else{
+                counts[6] += 1;
             }// end if-else
         }// end for
         return counts;
@@ -86,4 +88,13 @@ public class Sequence {
     public int length(){
         return this.sequence.length();
     }
+    
+    /**
+     * Check to see if sequence contains non [ACTGN-] characters
+     * 
+     * @return boolean true/false
+     */
+    public boolean isAmbiguous(){
+        return this.getNucleotideCount()[6] != 0;
+    }// end isAmbiguous method
 }// end class

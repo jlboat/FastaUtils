@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 lboat.
+ * Copyright 2018 J. Lucas Boatwright.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class Fasta {
         this.parse();
     }// end constructor from filename
     
-    public Fasta(LinkedHashMap lhm){
+    public Fasta(LinkedHashMap<String, Sequence> lhm){
         this.lhm = lhm;     
     }// end constructor from header-sequence hash
     
@@ -94,7 +95,7 @@ public class Fasta {
      * 
      * @return  A set of the FASTA headers
      */
-    public Set getKeys(){
+    public Set<String> getKeys(){
         return this.lhm.keySet();
     }// end getKeys method
     
@@ -106,4 +107,17 @@ public class Fasta {
     public Collection<Sequence> getValues(){
         return this.lhm.values();
     }// end getValues method
+    
+    /**
+     * Check to see if any FASTA sequences contain non [ACTGN-] characters
+     * 
+     * @return boolean true/false
+     */
+    public boolean containsAmbiguous(){
+        int[] nucleotides = new int[7];
+        this.lhm.values().forEach((seq) -> {
+            Arrays.setAll(nucleotides, i -> nucleotides[i] + seq.getNucleotideCount()[i]);
+        }); // end for
+        return nucleotides[6] != 0;
+    }// end containsAmbiguous method
 }// end Fasta class 
