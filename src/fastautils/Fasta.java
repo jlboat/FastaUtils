@@ -54,7 +54,7 @@ public class Fasta {
     
     @Override
     public String toString(){
-        String seq = this.filename + "%nEntries: " + this.lhm.size() + "%n";
+        String seq = this.filename + " contains " + this.lhm.size() + "entries";
         return seq;
     }
     
