@@ -97,4 +97,29 @@ public class Sequence {
     public boolean isAmbiguous(){
         return this.getNucleotideCount()[6] != 0;
     }// end isAmbiguous method
+    
+    /**
+     * 
+     * @return String reverse complement of the sequence
+     */
+    public String reverseComplement(){
+        char[] revComp = new char[this.sequence.length()];
+        char[] string = this.sequence.toCharArray();
+        for (int i = 0; i < string.length; i++) {
+            revComp[string.length-1-i] = string[i];
+        }       
+        for (int i = 0; i < revComp.length; i++){
+            char nucleotide = revComp[i];
+            if ((nucleotide == 'A') || (nucleotide == 'a')){
+                revComp[i] = 'T';
+            } else if ((nucleotide == 'C') || (nucleotide == 'c')){
+                revComp[i] = 'G';
+            } else if ((nucleotide == 'G') || (nucleotide == 'g')){
+                revComp[i] = 'C';
+            } else if ((nucleotide == 'T') || (nucleotide == 't')){
+                revComp[i] = 'A';
+            }
+        }// end for
+        return String.valueOf(revComp);
+    }// end reverseComplement method
 }// end class

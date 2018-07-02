@@ -38,6 +38,9 @@ public class FastaUtils {
     public static void main(String[] args) throws IOException {
         Fasta fasta = new Fasta(args[0]);
         System.out.println(fasta.containsAmbiguous());
+        fasta.getValues().forEach((seq) -> {
+            System.out.println(seq.reverseComplement());
+        });
         fasta.toFile(args[1]);
     }
     
