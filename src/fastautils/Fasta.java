@@ -52,6 +52,12 @@ public class Fasta {
         this.lhm = lhm;     
     }// end constructor from header-sequence hash
     
+    @Override
+    public String toString(){
+        String seq = this.filename + "%nEntries: " + this.lhm.size() + "%n";
+        return seq;
+    }
+    
     private void parse() throws IOException{
         Object[] file = Files.lines(Paths.get(this.filename)).toArray();
         String header = "";
@@ -104,6 +110,7 @@ public class Fasta {
     
     /**
      * Returns all of the FASTA sequences as a Collection.
+     * This is unordered. So, don't expect to use this much.
      * 
      * @return Collection of FASTA sequences
      */
