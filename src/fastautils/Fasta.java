@@ -56,8 +56,8 @@ public class Fasta {
         Object[] file = Files.lines(Paths.get(this.filename)).toArray();
         String header = "";
         StringBuilder seq = new StringBuilder();
-        for (Object obj: file){
-            String line = String.valueOf(obj).trim();
+        for (int i = 0; i < file.length; i++){
+            String line = String.valueOf(file[i]).trim();
             if (line.startsWith(">")){
                 if (seq.length() == 0){
                     header = line;
@@ -66,7 +66,10 @@ public class Fasta {
                     seq = new StringBuilder();
                     header = line;
                 }// end if-else                
-            } else {
+            } else if (i == file.length-1){
+                seq.append(line);
+                this.lhm.put(header, new Sequence(seq.toString()));
+            }else {
                 seq.append(line);
             }// end if-else
         }// end for

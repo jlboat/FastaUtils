@@ -106,8 +106,8 @@ public class Sequence {
         char[] revComp = new char[this.sequence.length()];
         char[] string = this.sequence.toCharArray();
         for (int i = 0; i < string.length; i++) {
-            revComp[string.length-1-i] = string[i];
-        }       
+            revComp[string.length-(i+1)] = string[i];
+        } 
         for (int i = 0; i < revComp.length; i++){
             char nucleotide = revComp[i];
             if ((nucleotide == 'A') || (nucleotide == 'a')){
