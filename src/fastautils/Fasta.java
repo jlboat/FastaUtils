@@ -41,6 +41,12 @@ public class Fasta {
     String filename;
     LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
     
+    /**
+     * A LinkedHashMap is parsed from a FASTA file
+     * 
+     * @param filename
+     * @throws IOException 
+     */
     public Fasta(String filename) throws IOException{
         if (Files.exists(Paths.get(filename))){
             this.filename = filename;
@@ -48,6 +54,10 @@ public class Fasta {
         this.parse();
     }// end constructor from filename
     
+    /**
+     * A FASTA object is generated from a LinkedHashMap
+     * @param lhm 
+     */
     public Fasta(LinkedHashMap<String, Sequence> lhm){
         this.lhm = lhm;     
     }// end constructor from header-sequence hash
@@ -110,7 +120,6 @@ public class Fasta {
     
     /**
      * Returns all of the FASTA sequences as a Collection.
-     * This is unordered. So, don't expect to use this much.
      * 
      * @return Collection of FASTA sequences
      */
