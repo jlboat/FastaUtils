@@ -118,6 +118,8 @@ public class Sequence {
                 revComp[i] = 'C';
             } else if ((nucleotide == 'T') || (nucleotide == 't')){
                 revComp[i] = 'A';
+            } else {
+                revComp[i] = nucleotide;
             }
         }// end for
         return String.valueOf(revComp);
