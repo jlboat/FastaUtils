@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.jlboat.fastautil;
+package com.github.jlboat.fastautils;
 
 import java.io.IOException;
 
