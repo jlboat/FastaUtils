@@ -4,4 +4,4 @@ jdk:
  - oraclejdk8
 
 script:
- - ant -lib './lib/' test
+ - mvn test -B
