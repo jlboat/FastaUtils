@@ -24,12 +24,17 @@
 package com.github.jlboat.fastautils;
 
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  *
  * @author lboat
  */
 public class FastaUtils {
+    public static int getSeqCount(Fasta fasta){
+        Set<String> keys = fasta.getKeys();
+        return keys.size();
+    }
    
     public static int[] getLengths(Fasta fasta){
         Sequence[] seqs = fasta.getValues().toArray(new Sequence[0]);
@@ -37,7 +42,6 @@ public class FastaUtils {
         for (int i = 0; i < seqs.length; i++) {
             lengths[i] = seqs[i].length();            
         }
-        Arrays.sort(lengths);
         return lengths;
     }
     
@@ -50,6 +54,7 @@ public class FastaUtils {
         }
         x = x/100;
         int[] lengths = getLengths(fasta);
+        Arrays.sort(lengths);
         int[] cum_sum = baseCumulativeSum(fasta);
         int total_base_count = cum_sum[lengths.length-1];
         for (int i = 0; i < cum_sum.length; i++) {
@@ -63,16 +68,19 @@ public class FastaUtils {
     
     public static int minLength(Fasta fasta){
         int[] lengths = getLengths(fasta);
+        Arrays.sort(lengths);
         return lengths[0];
     }
     
     public static int maxLength(Fasta fasta){
         int[] lengths = getLengths(fasta);
+        Arrays.sort(lengths);
         return lengths[lengths.length-1];
     }
     
     public static double medianLength(Fasta fasta){
         int[] lengths = getLengths(fasta);
+        Arrays.sort(lengths);
         int index = lengths.length/2 + 1;
         if(lengths.length % 2 == 1){ //odd num -- exact middle           
             return lengths[index];
@@ -90,6 +98,7 @@ public class FastaUtils {
     
     public static int[] baseCumulativeSum(Fasta fasta){
         int[] lengths = getLengths(fasta);
+        Arrays.sort(lengths);
         int[] cum_sum = new int[lengths.length];
         cum_sum[0] = lengths[0];
         for (int i = 1; i < cum_sum.length; i++) {
