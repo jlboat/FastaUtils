@@ -23,11 +23,15 @@
  */
 package com.github.jlboat.fastautils;
 
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 /**
  *
  * @author lboat
  */
-public class Sequence {
+public abstract class Sequence {
     String sequence = "";
     
     public Sequence(String sequence){
@@ -40,46 +44,12 @@ public class Sequence {
     }// end toString method
     
     /**
-     * Returns counts for nucleotides (or N/-/other) in a sequence in an integer array
-     * Will count both lower or uppercase nucleotides
+     * Check to see if sequence contains non [ACTGN-] characters
+     * Or, for protein, non-standard amino acids
      * 
-     * @return integer array with [A,C,G,T,N,-,other] counts
+     * @return boolean whether sequence contains ambiguous codes
      */
-    public int[] getNucleotideCount(){
-        char[] string = this.sequence.toCharArray();
-        int[] counts = new int[7];
-        for (char nucleotide: string){
-            if ((nucleotide == 'A') || (nucleotide == 'a')){
-                counts[0] += 1;
-            } else if ((nucleotide == 'C') || (nucleotide == 'c')){
-                counts[1] += 1;
-            } else if ((nucleotide == 'G') || (nucleotide == 'g')){
-                counts[2] += 1;
-            } else if ((nucleotide == 'T') || (nucleotide == 't')){
-                counts[3] += 1;
-            } else if ((nucleotide == 'N') || (nucleotide == 'n')){
-                counts[4] += 1;
-            } else if (nucleotide == '-'){
-                counts[5] += 1;
-            } else{
-                counts[6] += 1;
-            }// end if-else
-        }// end for
-        return counts;
-    }// end getNucleotideCount method
-    
-    /**
-     * Returns the percent GC of the sequence
-     * @return double percent GC in sequence
-     */
-    public double getPercGC(){
-        int[] nuc_count = this.getNucleotideCount();
-        double total = 0;
-        for (int count: nuc_count){
-            total += count;
-        }// end for
-        return (nuc_count[1]+nuc_count[2])/total;
-    }// end getPercGC method
+    public abstract boolean isAmbiguous();
     
     /**
      * 
@@ -90,38 +60,25 @@ public class Sequence {
     }
     
     /**
-     * Check to see if sequence contains non [ACTGN-] characters
+     * This function is designed to take a motif as a regular 
+     * expression and find it in the sequence. If the motif is
+     * not found, returns -1.
      * 
-     * @return boolean true/false
+     * @param motif
+     * @return index location where motif starts
      */
-    public boolean isAmbiguous(){
-        return this.getNucleotideCount()[6] != 0;
-    }// end isAmbiguous method
-    
-    /**
-     * 
-     * @return String reverse complement of the sequence
-     */
-    public String reverseComplement(){
-        char[] revComp = new char[this.sequence.length()];
-        char[] string = this.sequence.toCharArray();
-        for (int i = 0; i < string.length; i++) {
-            revComp[string.length-(i+1)] = string[i];
-        } 
-        for (int i = 0; i < revComp.length; i++){
-            char nucleotide = revComp[i];
-            if ((nucleotide == 'A') || (nucleotide == 'a')){
-                revComp[i] = 'T';
-            } else if ((nucleotide == 'C') || (nucleotide == 'c')){
-                revComp[i] = 'G';
-            } else if ((nucleotide == 'G') || (nucleotide == 'g')){
-                revComp[i] = 'C';
-            } else if ((nucleotide == 'T') || (nucleotide == 't')){
-                revComp[i] = 'A';
-            } else {
-                revComp[i] = nucleotide;
-            }
-        }// end for
-        return String.valueOf(revComp);
-    }// end reverseComplement method
+    public ArrayList containsMotif(String motif){
+        ArrayList indices = new ArrayList();
+        Pattern pattern = Pattern.compile(motif);
+        Matcher matcher = pattern.matcher(this.sequence);
+        boolean b = matcher.matches();
+        if(b){
+            do{
+                indices.add(matcher.start());
+            } while (matcher.find(matcher.start(1)));
+            return indices;
+        } else{
+            return indices;
+        }// end if-else
+    }// end containsMotif
 }// end class

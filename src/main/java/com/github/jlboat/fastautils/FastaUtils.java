@@ -36,10 +36,10 @@ public class FastaUtils {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        Fasta fasta = new Fasta(args[0]);
+        Fasta fasta = new Fasta(args[0], "DNA");
         System.out.println(fasta.containsAmbiguous());
         fasta.getValues().forEach((seq) -> {
-            System.out.println(seq.reverseComplement());
+            System.out.println(((DNA)seq).reverseComplement());
         });
         fasta.toFile(args[1]);
     }

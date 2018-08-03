@@ -39,18 +39,27 @@ import java.util.Set;
  */
 public class Fasta {
     String filename;
+    String seq_type;
     LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
     
     /**
      * A LinkedHashMap is parsed from a FASTA file
      * 
      * @param filename
+     * @param seq_type Type of sequence data in FASTA
      * @throws IOException 
      */
-    public Fasta(String filename) throws IOException{
+    public Fasta(String filename, String seq_type) throws IOException{
         if (Files.exists(Paths.get(filename))){
             this.filename = filename;
         }// end if
+        if (("DNA".equals(seq_type.toUpperCase())) || 
+                ("RNA".equals(seq_type.toUpperCase()))){
+            this.seq_type = seq_type.toUpperCase();
+        } else {
+            System.err.println("Incompatible sequence type");
+            System.exit(0);
+        }
         this.parse();
     }// end constructor from filename
     
@@ -78,13 +87,21 @@ public class Fasta {
                 if (seq.length() == 0){
                     header = line;
                 } else{
-                    this.lhm.put(header, new Sequence(seq.toString()));
+                    if ("RNA".equals(this.seq_type)){
+                        this.lhm.put(header, new RNA(seq.toString()));
+                    } else if ("DNA".equals(this.seq_type)){
+                        this.lhm.put(header, new DNA(seq.toString()));
+                    }
                     seq = new StringBuilder();
                     header = line;
                 }// end if-else                
             } else if (i == file.length-1){
                 seq.append(line);
-                this.lhm.put(header, new Sequence(seq.toString()));
+                if ("RNA".equals(this.seq_type)){
+                    this.lhm.put(header, new RNA(seq.toString()));
+                } else if ("DNA".equals(this.seq_type)){
+                    this.lhm.put(header, new DNA(seq.toString()));
+                }
             }else {
                 seq.append(line);
             }// end if-else
@@ -135,7 +152,11 @@ public class Fasta {
     public boolean containsAmbiguous(){
         int[] nucleotides = new int[7];
         this.lhm.values().forEach((seq) -> {
-            Arrays.setAll(nucleotides, i -> nucleotides[i] + seq.getNucleotideCount()[i]);
+            if ("RNA".equals(seq_type)){
+                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((RNA)seq).getNucleotideCount()[i]);
+            } else if ("DNA".equals(seq_type)){
+                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((DNA)seq).getNucleotideCount()[i]);
+            }
         }); // end for
         return nucleotides[6] != 0;
     }// end containsAmbiguous method

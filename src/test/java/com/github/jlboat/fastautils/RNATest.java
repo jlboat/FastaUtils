@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author J. Lucas Boatwright
  */
-public class SequenceTest {
+public class RNATest {
     
-    public SequenceTest() {
+    public RNATest() {
     }
     
     @BeforeClass
@@ -38,13 +38,13 @@ public class SequenceTest {
     }
 
     /**
-     * Test of toString method, of class Sequence.
+     * Test of toString method, of class RNA.
      */
     @Test
     public void testToString() {
         System.out.println("toString");
-        Sequence instance = new Sequence("AAAACCCGTT--N");
-        String expResult = "AAAACCCGTT--N";
+        RNA instance = new RNA("AAAACCCGUU--N");
+        String expResult = "AAAACCCGUU--N";
         String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -52,12 +52,12 @@ public class SequenceTest {
     }
 
     /**
-     * Test of getNucleotideCount method, of class Sequence.
+     * Test of getNucleotideCount method, of class RNA.
      */
     @Test
     public void testGetNucleotideCount() {
         System.out.println("getNucleotideCount");
-        Sequence instance = new Sequence("AAAACCCGTT--N");
+        RNA instance = new RNA("AAAACCCGUU--N");
         int[] expResult = {4,3,1,2,1,2,0};
         int[] result = instance.getNucleotideCount();
         assertArrayEquals(expResult, result);
@@ -66,12 +66,12 @@ public class SequenceTest {
     }
 
     /**
-     * Test of getPercGC method, of class Sequence.
+     * Test of getPercGC method, of class RNA.
      */
     @Test
     public void testGetPercGC() {
         System.out.println("getPercGC");
-        Sequence instance = new Sequence("ACAACCCGTTC-NG");
+        RNA instance = new RNA("ACAACCCGUUC-NG");
         double expResult = 0.5;
         double result = instance.getPercGC();
         assertEquals(expResult, result, 0.0);
@@ -80,12 +80,12 @@ public class SequenceTest {
     }
 
     /**
-     * Test of length method, of class Sequence.
+     * Test of length method, of class RNA.
      */
     @Test
     public void testLength() {
         System.out.println("length");
-        Sequence instance = new Sequence("ACAACCCGTTC-NG");
+        RNA instance = new RNA("ACAACCCGUUC-NG");
         int expResult = 14;
         int result = instance.length();
         assertEquals(expResult, result);
@@ -94,12 +94,12 @@ public class SequenceTest {
     }
 
     /**
-     * Test of isAmbiguous method, of class Sequence.
+     * Test of isAmbiguous method, of class RNA.
      */
     @Test
     public void testIsAmbiguous() {
         System.out.println("isAmbiguous");
-        Sequence instance = new Sequence("AAAACCCGTT--N");
+        RNA instance = new RNA("AAAACCCGUU--N");
         boolean expResult = false;
         boolean result = instance.isAmbiguous();
         assertEquals(expResult, result);
@@ -108,13 +108,13 @@ public class SequenceTest {
     }
 
     /**
-     * Test of reverseComplement method, of class Sequence.
+     * Test of reverseComplement method, of class RNA.
      */
     @Test
     public void testReverseComplement() {
         System.out.println("reverseComplement");
-        Sequence instance = new Sequence("AAAACCCGTT--N");
-        String expResult = "N--AACGGGTTTT";
+        RNA instance = new RNA("AAAACCCGUU--N");
+        String expResult = "N--AACGGGUUUU";
         String result = instance.reverseComplement();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
