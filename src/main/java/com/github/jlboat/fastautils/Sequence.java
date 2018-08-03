@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package fastautils;
+package com.github.jlboat.fastautils;
 
 /**
  *
@@ -83,7 +83,7 @@ public class Sequence {
     
     /**
      * 
-     * @return int length of sequence
+     * @return integer length of sequence
      */
     public int length(){
         return this.sequence.length();
@@ -118,6 +118,8 @@ public class Sequence {
                 revComp[i] = 'C';
             } else if ((nucleotide == 'T') || (nucleotide == 't')){
                 revComp[i] = 'A';
+            } else {
+                revComp[i] = nucleotide;
             }
         }// end for
         return String.valueOf(revComp);
