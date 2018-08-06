@@ -52,14 +52,19 @@ public class FastaUtils {
             System.err.println("Typical values include N25, N50, N75");
             return -1;
         }
-        x = x/100;
         int[] lengths = getLengths(fasta);
+        if(lengths.length == 1){
+            System.err.printf("Only one sequence present. Cannot calculate N%f:.0",
+                    x);
+        }
+        x = x/100;
         Arrays.sort(lengths);
         int[] cum_sum = baseCumulativeSum(fasta);
         int total_base_count = cum_sum[lengths.length-1];
         for (int i = 0; i < cum_sum.length; i++) {
-            if ((cum_sum[i]/total_base_count) > x){
-                return lengths[i];
+            int index = cum_sum.length - (i+1);
+            if (((total_base_count-cum_sum[index])/(double)total_base_count) > x){
+                return lengths[index+1];
             }
         }
         // In the event the above code fails
@@ -81,11 +86,11 @@ public class FastaUtils {
     public static double medianLength(Fasta fasta){
         int[] lengths = getLengths(fasta);
         Arrays.sort(lengths);
-        int index = lengths.length/2 + 1;
+        int index = lengths.length/2;
         if(lengths.length % 2 == 1){ //odd num -- exact middle           
             return lengths[index];
         } else { // even number -- double
-            double median = (lengths[index-1] + lengths[index])/2;
+            double median = (lengths[index-1] + (double)lengths[index])/2;
             return median;
         }
     }
@@ -93,7 +98,7 @@ public class FastaUtils {
     public static double meanLength(Fasta fasta){
         int[] lengths = getLengths(fasta);
         int total_length = baseCumulativeSum(fasta)[lengths.length-1];
-        return total_length/lengths.length;
+        return total_length/(double)lengths.length;
     }
     
     public static int[] baseCumulativeSum(Fasta fasta){
