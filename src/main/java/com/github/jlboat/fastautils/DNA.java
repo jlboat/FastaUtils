@@ -87,4 +87,8 @@ public class DNA extends Sequence {
         }// end for
         return String.valueOf(revComp);
     }// end reverseComplement method
+    
+    public String transcribe(){        
+        return this.sequence.replace('T', 'U').replace('t', 'u');
+    }
 }

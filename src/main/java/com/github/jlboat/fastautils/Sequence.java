@@ -24,6 +24,7 @@
 package com.github.jlboat.fastautils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -57,6 +58,17 @@ public abstract class Sequence {
      */
     public int length(){
         return this.sequence.length();
+    }
+    
+    public String[] getKmers(int kmer_length){   
+        int total_kmers = this.sequence.length() - kmer_length + 1;
+        String[] kmers = new String[total_kmers];
+        char[] seq = this.sequence.toCharArray();
+        for (int i = 0; i < total_kmers; i++) {
+            char[] kmer_array = Arrays.copyOfRange(seq, i, i+kmer_length);
+            kmers[i] = new String(kmer_array);
+        }
+        return kmers;
     }
     
     /**
