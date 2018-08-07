@@ -50,6 +50,19 @@ public class DNATest {
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
     }
+    
+    /**
+     * Test of getKmers method, of class Sequence
+     */
+    @Test
+    public void testGetKmers(){
+        System.out.println("getKmers");
+        DNA instance = new DNA("AAAACCCGTT--N");
+        String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
+        "CCG","CGT","GTT","TT-","T--","--N"};
+        String[] result = instance.getKmers(3);
+        assertArrayEquals(expResult, result);
+    }
 
     /**
      * Test of getNucleotideCount method, of class DNA.
@@ -61,8 +74,6 @@ public class DNATest {
         int[] expResult = {4,3,1,2,1,2,0};
         int[] result = instance.getNucleotideCount();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -75,8 +86,6 @@ public class DNATest {
         double expResult = 0.5;
         double result = instance.getPercGC();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -89,8 +98,6 @@ public class DNATest {
         int expResult = 14;
         int result = instance.length();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -103,8 +110,6 @@ public class DNATest {
         boolean expResult = false;
         boolean result = instance.isAmbiguous();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -117,8 +122,17 @@ public class DNATest {
         String expResult = "N--AACGGGTTTT";
         String result = instance.reverseComplement();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
     
+        /**
+     * Test of length method, of class DNA.
+     */
+    @Test
+    public void testTranscribe() {
+        System.out.println("length");
+        DNA instance = new DNA("ACAttCCGTTC-NG");
+        String expResult = "ACAuuCCGUUC-NG";
+        String result = instance.transcribe();
+        assertEquals(expResult, result);
+    }
 }

@@ -39,23 +39,24 @@ public class FastaTest {
     @After
     public void tearDown() {
     }
-//
-//    /**
-//     * Test of toString method, of class Fasta.
-//     * @throws java.io.IOException
-//     */
-//    @Test
-//    public void testToString() throws IOException {
-//        System.out.println("toString");
-//        Fasta instance = new Fasta("src/test/resources/com/github/" + 
-//                "jlboat/fastautils/DNA.fasta", "DNA");
-//        String expResult = "";
-//        String result = instance.toString();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
+    /**
+     * Test of toString method, of class Fasta.
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testToString() throws IOException {
+        System.out.println("toString");
+        Fasta instance = new Fasta("src/test/resources/com/github/" + 
+                "jlboat/fastautils/DNA.fasta", "DNA");
+        String expResult = "src/test/resources/com/github/"+
+                "jlboat/fastautils/DNA.fasta contains 50 entries";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        // fail("The test case is a prototype.");
+    }
+
 //    /**
 //     * Test of toFile method, of class Fasta.
 //     * @throws java.io.IOException

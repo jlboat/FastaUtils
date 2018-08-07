@@ -47,8 +47,6 @@ public class RNATest {
         String expResult = "AAAACCCGUU--N";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -61,8 +59,6 @@ public class RNATest {
         int[] expResult = {4,3,1,2,1,2,0};
         int[] result = instance.getNucleotideCount();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -75,8 +71,6 @@ public class RNATest {
         double expResult = 0.5;
         double result = instance.getPercGC();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -89,8 +83,6 @@ public class RNATest {
         int expResult = 14;
         int result = instance.length();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -103,8 +95,6 @@ public class RNATest {
         boolean expResult = false;
         boolean result = instance.isAmbiguous();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -117,8 +107,6 @@ public class RNATest {
         String expResult = "N--AACGGGUUUU";
         String result = instance.reverseComplement();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
     
 }

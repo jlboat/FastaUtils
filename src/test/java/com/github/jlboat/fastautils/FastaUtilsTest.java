@@ -50,8 +50,6 @@ public class FastaUtilsTest {
         int expResult = 50;
         int result = FastaUtils.getSeqCount(fasta);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -71,8 +69,6 @@ public class FastaUtilsTest {
         795, 2682,  189, 5553, 1341,  339};
         int[] result = FastaUtils.getLengths(fasta);
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -92,8 +88,6 @@ public class FastaUtilsTest {
         int expResult2 = 522;
         int result2 = FastaUtils.nX(fasta, y);
         assertEquals(expResult2, result2);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -108,8 +102,6 @@ public class FastaUtilsTest {
         int expResult = 189;
         int result = FastaUtils.minLength(fasta);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -124,8 +116,6 @@ public class FastaUtilsTest {
         int expResult = 7047;
         int result = FastaUtils.maxLength(fasta);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -140,8 +130,6 @@ public class FastaUtilsTest {
         double expResult = 900;
         double result = FastaUtils.medianLength(fasta);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -156,8 +144,6 @@ public class FastaUtilsTest {
         double expResult = 1112.74;
         double result = FastaUtils.meanLength(fasta);
         assertEquals(expResult, result, 0.01);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -177,8 +163,6 @@ public class FastaUtilsTest {
        37139, 39821, 43037, 48590, 55637};
         int[] result = FastaUtils.baseCumulativeSum(fasta);
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
     
 }
