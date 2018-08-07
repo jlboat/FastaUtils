@@ -10,7 +10,7 @@ package com.github.jlboat.fastautils;
  * @author J. Lucas Boatwright
  */
 public class DNA extends Sequence {
-    DNA(String sequence){
+    public DNA(String sequence){
         super(sequence);
     }    
     

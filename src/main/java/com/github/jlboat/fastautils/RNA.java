@@ -10,7 +10,7 @@ package com.github.jlboat.fastautils;
  * @author J. Lucas Boatwright
  */
 public class RNA extends Sequence {
-    RNA(String sequence){
+    public RNA(String sequence){
         super(sequence);
     }
     
