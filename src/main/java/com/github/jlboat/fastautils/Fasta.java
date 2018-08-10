@@ -25,7 +25,6 @@ package com.github.jlboat.fastautils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
