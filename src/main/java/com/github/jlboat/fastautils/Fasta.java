@@ -25,6 +25,7 @@ package com.github.jlboat.fastautils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.IllegalArgumentException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,8 +58,7 @@ public class Fasta {
                 ("RNA".equals(seq_type.toUpperCase()))){
             this.seq_type = seq_type.toUpperCase();
         } else {
-            System.err.println("Incompatible sequence type");
-            System.exit(0);
+            throw new IllegalArgumentException("Incompatible sequence type");
         }
         this.parse();
     }// end constructor from filename
