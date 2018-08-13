@@ -82,15 +82,14 @@ public abstract class Sequence {
     public ArrayList containsMotif(String motif){
         ArrayList indices = new ArrayList();
         Pattern pattern = Pattern.compile(motif);
-        Matcher matcher = pattern.matcher(this.sequence);
-        boolean b = matcher.matches();
-        if(b){
-            do{
-                indices.add(matcher.start());
-            } while (matcher.find(matcher.start(1)));
-            return indices;
-        } else{
-            return indices;
-        }// end if-else
+        String[] kmers = getKmers(motif.length());
+        for (int i = 0; i < kmers.length; i++) {
+            String kmer = kmers[i];
+            Matcher matcher = pattern.matcher(kmer);
+            if(matcher.matches()){
+                indices.add(i);
+            }
+        }
+        return indices;
     }// end containsMotif
 }// end class

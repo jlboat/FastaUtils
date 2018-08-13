@@ -111,19 +111,44 @@ public class Fasta {
      * Writes a FASTA object to the file specified in the argument outfile.
      * 
      * @param outfile   name of the FASTA output file  
+     * @param wrapcount  
      */
-    public void toFile(String outfile){
+    public void toFile(String outfile, int wrapcount){
+        if ((wrapcount > 0) & (wrapcount < 60)){
+            System.err.println("Warning: unusual character wrap count " + 
+                    "(typical {0,60,80})");
+        }
         Path path = Paths.get(outfile);
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"))){
             for (String key: this.lhm.keySet()){
                 writer.write(String.format("%s%n",key));
-                writer.write(String.format("%s%n",this.lhm.get(key)));
+                if (wrapcount == 0){                   
+                    writer.write(String.format("%s%n",this.lhm.get(key)));
+                } else {
+                    char[] seq = this.lhm.get(key).toString().toCharArray();
+                    for (int i = 0; i < seq.length; i = i + wrapcount) {
+                        try{
+                            String substring = String.copyValueOf(seq, 
+                                    i, i + wrapcount);
+                            writer.write(String.format("%s%n",substring));
+                        } catch (StringIndexOutOfBoundsException ex){
+                            String substring = String.copyValueOf(seq, 
+                                    i, seq.length - 1 );
+                            writer.write(String.format("%s%n",substring));
+                        }
+                        
+                    }
+                }
             }// end for
         } catch (IOException ex){
             System.err.printf("Error writing file %s",ex);
         }
 
     }// end toFile method
+    
+    public void toFile(String outfile){
+        this.toFile(outfile, 0);
+    }
     
     /**
      * Returns all of the FASTA headers as a set
