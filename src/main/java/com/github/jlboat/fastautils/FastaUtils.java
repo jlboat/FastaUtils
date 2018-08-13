@@ -24,6 +24,7 @@
 package com.github.jlboat.fastautils;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 /**
@@ -31,12 +32,23 @@ import java.util.Set;
  * @author lboat
  */
 public class FastaUtils {
-    public static int getSeqCount(Fasta fasta){
+    public static LinkedHashMap<String, Number> stats(Fasta fasta){
+        LinkedHashMap<String, Number> stats = new LinkedHashMap<>();
+        stats.put("Count", seqCount(fasta));
+        stats.put("Minimum", minLength(fasta));
+        stats.put("Maximum", maxLength(fasta));
+        stats.put("Median", medianLength(fasta));
+        stats.put("Mean", meanLength(fasta));
+        stats.put("N50", nX(fasta, 50));
+        return stats;
+    }
+    
+    public static int seqCount(Fasta fasta){
         Set<String> keys = fasta.getKeys();
         return keys.size();
     }
    
-    public static int[] getLengths(Fasta fasta){
+    public static int[] seqLengths(Fasta fasta){
         Sequence[] seqs = fasta.getValues().toArray(new Sequence[0]);
         int[] lengths = new int[seqs.length];
         for (int i = 0; i < seqs.length; i++) {
@@ -52,7 +64,7 @@ public class FastaUtils {
             System.err.println("Typical values include N25, N50, N75");
             return -1;
         }
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         if(lengths.length == 1){
             System.err.printf("Only one sequence present. Cannot calculate N%f:.0",
                     x);
@@ -72,19 +84,19 @@ public class FastaUtils {
     }
     
     public static int minLength(Fasta fasta){
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         return lengths[0];
     }
     
     public static int maxLength(Fasta fasta){
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         return lengths[lengths.length-1];
     }
     
     public static double medianLength(Fasta fasta){
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         int index = lengths.length/2;
         if(lengths.length % 2 == 1){ //odd num -- exact middle           
@@ -96,13 +108,13 @@ public class FastaUtils {
     }
     
     public static double meanLength(Fasta fasta){
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         int total_length = baseCumulativeSum(fasta)[lengths.length-1];
         return total_length/(double)lengths.length;
     }
     
     public static int[] baseCumulativeSum(Fasta fasta){
-        int[] lengths = getLengths(fasta);
+        int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         int[] cum_sum = new int[lengths.length];
         cum_sum[0] = lengths[0];

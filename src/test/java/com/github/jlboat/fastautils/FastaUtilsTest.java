@@ -43,12 +43,12 @@ public class FastaUtilsTest {
      * @throws java.io.IOException
      */
     @Test
-    public void testGetSeqCount() throws IOException {
+    public void testSeqCount() throws IOException {
         System.out.println("getSeqCount");
         Fasta fasta = new Fasta("src/test/resources/com/github/" + 
                 "jlboat/fastautils/DNA.fasta", "DNA");
         int expResult = 50;
-        int result = FastaUtils.getSeqCount(fasta);
+        int result = FastaUtils.seqCount(fasta);
         assertEquals(expResult, result);
     }
 
@@ -57,7 +57,7 @@ public class FastaUtilsTest {
      * @throws java.io.IOException
      */
     @Test
-    public void testGetLengths() throws IOException {
+    public void testSeqLengths() throws IOException {
         System.out.println("getLengths");
         Fasta fasta = new Fasta("src/test/resources/com/github/" + 
                 "jlboat/fastautils/DNA.fasta", "DNA");
@@ -67,7 +67,7 @@ public class FastaUtilsTest {
        1116,  981, 1017,  653,  294,  201,  735,  918,  882,  411, 1368,
         921, 2262, 1446,  921, 1470,  273,  375,  231, 1128,  972,  621,
         795, 2682,  189, 5553, 1341,  339};
-        int[] result = FastaUtils.getLengths(fasta);
+        int[] result = FastaUtils.seqLengths(fasta);
         assertArrayEquals(expResult, result);
     }
 
