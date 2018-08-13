@@ -127,17 +127,18 @@ public class Fasta {
                 } else {
                     char[] seq = this.lhm.get(key).toString().toCharArray();
                     for (int i = 0; i < seq.length; i = i + wrapcount) {
-                        String substring;
-                        if ((i+wrapcount) > seq.length -1){
-                            substring = String.copyValueOf(seq, 
+                        char[] substring;
+                        if ((i+wrapcount) > (seq.length - 1)){
+                            substring = Arrays.copyOfRange(seq, 
                                     i, seq.length - 1 );
                         } else {
-                            substring = String.copyValueOf(seq, 
+                            substring = Arrays.copyOfRange(seq, 
                                     i, i + wrapcount);
                         }
-                        writer.write(String.format("%s%n",substring));                     
+                        writer.write(String.format("%s%n", 
+                                String.valueOf(substring)));                     
                     }
-                }
+                }// end if-else
             }// end for
         } catch (IOException ex){
             System.err.printf("Error writing file %s",ex);
