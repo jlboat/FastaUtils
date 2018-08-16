@@ -5,6 +5,9 @@
  */
 package com.github.jlboat.fastautils;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
 /**
  *
  * @author J. Lucas Boatwright
@@ -87,4 +90,82 @@ public class RNA extends Sequence {
         }// end for
         return String.valueOf(revComp);
     }// end reverseComplement method
+    
+    public String rnaToProtein() {
+        LinkedHashMap<String, String> lhm = new LinkedHashMap<>();
+        lhm.put("UUU", "F");
+        lhm.put("CUU", "L");
+        lhm.put("AUU", "I");
+        lhm.put("GUU", "V");
+        lhm.put("UUC", "F");
+        lhm.put("CUC", "L");
+        lhm.put("AUC", "I");
+        lhm.put("GUC", "V");
+        lhm.put("UUA", "L");
+        lhm.put("CUA", "L");
+        lhm.put("AUA", "I");
+        lhm.put("GUA", "V");
+        lhm.put("UUG", "L");
+        lhm.put("CUG", "L");
+        lhm.put("AUG", "M");
+        lhm.put("GUG", "V");
+        lhm.put("UCU", "S");
+        lhm.put("CCU", "P");
+        lhm.put("ACU", "T");
+        lhm.put("GCU", "A");
+        lhm.put("UCC", "S");
+        lhm.put("CCC", "P");
+        lhm.put("ACC", "T");
+        lhm.put("GCC", "A");
+        lhm.put("UCA", "S");
+        lhm.put("CCA", "P");
+        lhm.put("ACA", "T");
+        lhm.put("GCA", "A");
+        lhm.put("UCG", "S");
+        lhm.put("CCG", "P");
+        lhm.put("ACG", "T");
+        lhm.put("GCG", "A");
+        lhm.put("UAU", "Y");
+        lhm.put("CAU", "H");
+        lhm.put("AAU", "N");
+        lhm.put("GAU", "D");
+        lhm.put("UAC", "Y");
+        lhm.put("CAC", "H");
+        lhm.put("AAC", "N");
+        lhm.put("GAC", "D");
+        lhm.put("UAA", "Stop");
+        lhm.put("CAA", "Q");
+        lhm.put("AAA", "K");
+        lhm.put("GAA", "E");
+        lhm.put("UAG", "Stop");
+        lhm.put("CAG", "Q");
+        lhm.put("AAG", "K");
+        lhm.put("GAG", "E");
+        lhm.put("UGU", "C");
+        lhm.put("CGU", "R");
+        lhm.put("AGU", "S");
+        lhm.put("GGU", "G");
+        lhm.put("UGC", "C");
+        lhm.put("CGC", "R");
+        lhm.put("AGC", "S");
+        lhm.put("GGC", "G");
+        lhm.put("UGA", "Stop");
+        lhm.put("CGA", "R");
+        lhm.put("AGA", "R");
+        lhm.put("GGA", "G");
+        lhm.put("UGG", "W");
+        lhm.put("CGG", "R");
+        lhm.put("AGG", "R");
+        lhm.put("GGG", "G");
+        char[] seq_array = this.sequence.toCharArray();
+        StringBuilder protein = new StringBuilder();
+        for (int i = 0; i < this.sequence.length(); i += 3) {
+            char[] slice = Arrays.copyOfRange(seq_array, i, i + 3);
+            String codon = String.valueOf(slice);
+            if (codon != null) {
+                protein.append(lhm.get(codon));
+            }
+        }
+        return protein.toString();
+    } // end rnaToProtein method
 }

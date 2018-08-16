@@ -123,4 +123,14 @@ public class FastaUtils {
         }
         return cum_sum;
     }
+    
+    public static Fasta randomFasta(int number_seqs, int seq_lengths){
+        LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
+        for (int i = 0; i < number_seqs; i++) {
+            String key = ">sequence_" + i;
+            DNA dna = SequenceUtils.randomDNA(seq_lengths);
+            lhm.put(key, dna);
+        }       
+        return new Fasta(lhm);
+    }
 }

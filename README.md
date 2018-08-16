@@ -13,7 +13,7 @@ mvn package
 ```
 
 ## Examples (run in JShell)
-In terminal:
+### In terminal:
 ```bash
 export CLASSPATH="./target/FastaUtils-1.0-jar-with-dependencies.jar"
 jshell -c "./target/FastaUtils-1.0-jar-with-dependencies.jar"
@@ -64,7 +64,7 @@ jshell> Collection<Sequence> values = fasta.getValues()
 values ==> [ATGGTTCACCACCATCGCCACCACCCCCCAGCAGCAGCGGAGCAAGTAT ... GGTGCATCATTTATGTTTGGAAGATT
 ```
 
-### Static utilities for FASTA files
+**Static utilities for FASTA files**
 ```java
 jshell> FastaUtils.stats(fasta)
 $8 ==> {Count=50, Minimum=189, Maximum=7047, Median=900.0, Mean=1112.74, N50=1341}
