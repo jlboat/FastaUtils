@@ -130,7 +130,7 @@ public class Fasta {
                         char[] substring;
                         if ((i+wrapcount) > (seq.length - 1)){
                             substring = Arrays.copyOfRange(seq, 
-                                    i, seq.length - 1 );
+                                    i, seq.length);
                         } else {
                             substring = Arrays.copyOfRange(seq, 
                                     i, i + wrapcount);
