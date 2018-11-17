@@ -151,6 +151,30 @@ public class Fasta {
     }
     
     /**
+     * 
+     * @return Fasta as LinkedHashMap
+     */
+    public LinkedHashMap<String, Sequence> getLhm(){
+        return this.lhm;
+    }
+    
+    /**
+     * 
+     * @return file name
+     */
+    public String getFilename(){
+        return this.filename;
+    }
+    
+    /**
+     * 
+     * @return sequence type DNA|RNA
+     */
+    public String getSequenceType(){
+        return this.seq_type;
+    }
+    
+    /**
      * Returns all of the FASTA headers as a set
      * 
      * @return  A set of the FASTA headers
