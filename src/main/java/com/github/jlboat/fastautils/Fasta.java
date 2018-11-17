@@ -38,9 +38,9 @@ import java.util.Set;
  * @author lboat
  */
 public class Fasta {
-    String filename;
-    String seq_type;
-    LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
+    private String filename;
+    private String seq_type;
+    private LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
     
     /**
      * A LinkedHashMap is parsed from a FASTA file
