@@ -33,6 +33,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  *
  * @author lboat
@@ -41,6 +45,8 @@ public class Fasta {
     private String filename;
     private String seq_type;
     private LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
+    
+    Logger logger = LogManager.getLogger();
     
     /**
      * A LinkedHashMap is parsed from a FASTA file
@@ -52,11 +58,16 @@ public class Fasta {
     public Fasta(String filename, String seq_type) throws IOException{
         if (Files.exists(Paths.get(filename))){
             this.filename = filename;
-        }// end if
+        } else {
+            logger.log(Level.ERROR,
+                    String.format("File, %s, not found.\n", filename));
+        }// end if-else
         if (("DNA".equals(seq_type.toUpperCase())) || 
                 ("RNA".equals(seq_type.toUpperCase()))){
             this.seq_type = seq_type.toUpperCase();
         } else {
+            logger.log(Level.ERROR, String.format(
+                    "Sequence type, %s, not found.\n", seq_type));
             throw new IllegalArgumentException("Incompatible sequence type");
         }
         this.parse();
@@ -77,12 +88,17 @@ public class Fasta {
     }
     
     private void parse() throws IOException{
+        logger.log(Level.INFO, "Parsing FASTA");
         Object[] file = Files.lines(Paths.get(this.filename)).toArray();
         String header = "";
         StringBuilder seq = new StringBuilder();
         for (int i = 0; i < file.length; i++){
             String line = String.valueOf(file[i]).trim();
             if (line.startsWith(">")){
+                if (this.lhm.containsKey(line)){
+                    logger.log(Level.WARN,"Repeated header detected. " + 
+                            "Using newest header-sequence pair.");
+                }
                 if (seq.length() == 0){
                     header = line;
                 } else{
@@ -114,8 +130,11 @@ public class Fasta {
      * @param wrapcount  
      */
     public void toFile(String outfile, int wrapcount){
+        logger.log(Level.INFO, String.format(
+                "Writing FASTA to file %s at %d bases per line", 
+                outfile, wrapcount));
         if ((wrapcount > 0) & (wrapcount < 60)){
-            System.err.println("Warning: unusual character wrap count " + 
+            logger.log(Level.WARN, "Unusual character wrap count " + 
                     "(typical {0,60,80})");
         }
         Path path = Paths.get(outfile);
@@ -141,7 +160,7 @@ public class Fasta {
                 }// end if-else
             }// end for
         } catch (IOException ex){
-            System.err.printf("Error writing file %s",ex);
+            logger.log(Level.ERROR, "Error writing file %s",ex);
         }
 
     }// end toFile method

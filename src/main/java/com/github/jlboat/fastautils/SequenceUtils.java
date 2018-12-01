@@ -10,12 +10,18 @@ import static java.lang.Math.random;
 import static java.lang.Math.round;
 import java.util.Arrays;
 import java.util.Collection;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author lucas
  */
 public class SequenceUtils {
+    
+    final private static Logger LOGGER = LogManager.getLogger();
+    
     /**
      * 
      * @param length
@@ -131,7 +137,7 @@ public class SequenceUtils {
         consensus_and_profile[0] = "";
         consensus_and_profile[1] = profile_matrix;
         for (int[] profile_matrix1 : profile_matrix) {
-            System.err.println(Arrays.toString(profile_matrix1));
+            LOGGER.log(Level.INFO, Arrays.toString(profile_matrix1));
         }
         return consensus_and_profile;
     }// end consensus
