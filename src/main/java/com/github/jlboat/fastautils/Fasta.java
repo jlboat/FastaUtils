@@ -87,6 +87,18 @@ public class Fasta {
         return seq;
     }
     
+    public boolean equals(Fasta fasta){
+        boolean header = this.getKeys().equals(fasta.getKeys());
+        boolean seq_same = true;
+        Object[] seqs = this.getValues().toArray();
+        Object[] fa_seqs = fasta.getValues().toArray();
+        for (int i = 0; i < seqs.length; i++) {
+            seq_same = ((Sequence)seqs[i]).equals((Sequence)fa_seqs[i]) 
+                    & seq_same;
+        }
+        return header & seq_same;
+    }
+    
     private void parse() throws IOException{
         logger.log(Level.INFO, "Parsing FASTA");
         Object[] file = Files.lines(Paths.get(this.filename)).toArray();

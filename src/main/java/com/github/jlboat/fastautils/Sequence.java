@@ -60,6 +60,10 @@ public abstract class Sequence {
         return this.sequence.length();
     }
     
+    public boolean equals(Sequence seq){
+        return this.sequence.equals(seq.sequence);
+    }
+    
     public String[] getKmers(int kmer_length){   
         int total_kmers = this.sequence.length() - kmer_length + 1;
         String[] kmers = new String[total_kmers];

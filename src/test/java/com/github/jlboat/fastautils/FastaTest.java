@@ -6,8 +6,6 @@
 package com.github.jlboat.fastautils;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,21 +54,35 @@ public class FastaTest {
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testBadFasta() throws IOException {
+        Fasta fasta = new Fasta("DNE.fa","DNA");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testBadSeqType() throws IOException{
+        Fasta instance = new Fasta("src/test/resources/com/github/" + 
+                "jlboat/fastautils/DNA.fasta", "mRNA");
+    }
 
 //    /**
 //     * Test of toFile method, of class Fasta.
 //     * @throws java.io.IOException
 //     */
-//    @Test
-//    public void testToFile() throws IOException {
-//        System.out.println("toFile");
-//        String outfile = "";
-//        Fasta instance = new Fasta("src/test/resources/com/github/" + 
-//                "jlboat/fastautils/DNA.fasta", "DNA");
-//        instance.toFile(outfile);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testToFile() throws IOException {
+        System.out.println("toFile");
+        String outfile = "src/test/resources/com/github/" + 
+                "jlboat/fastautils/test.fasta";
+        Fasta instance = new Fasta("src/test/resources/com/github/" + 
+                "jlboat/fastautils/DNA.fasta", "DNA");
+        instance.toFile(outfile, 60);
+        Fasta written = new Fasta(outfile, "DNA");
+        assertTrue(instance.equals(written));
+        // TODO review the generated test code and remove the default call to fail.
+        // fail("The test case is a prototype.");
+    }
 //
 //    /**
 //     * Test of getKeys method, of class Fasta.
