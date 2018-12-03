@@ -50,6 +50,19 @@ public class RNATest {
     }
 
     /**
+     * Test of getKmers method, of class Sequence
+     */
+    @Test
+    public void testGetKmers(){
+        System.out.println("getKmers");
+        DNA instance = new DNA("AAAACCCGUU--N");
+        String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
+        "CCG","CGU","GUU","UU-","U--","--N"};
+        String[] result = instance.getKmers(3);
+        assertArrayEquals(expResult, result);
+    }
+    
+    /**
      * Test of getNucleotideCount method, of class RNA.
      */
     @Test
@@ -109,4 +122,75 @@ public class RNATest {
         assertEquals(expResult, result);
     }
     
+    /** 
+     * Test of rnaToProtein method, of class RNA
+     */
+    @Test
+    public void testRnaToProtein(){
+        assertTrue("F".equals(new RNA("UUU").rnaToProtein()));
+        assertTrue("L".equals(new RNA("CUU").rnaToProtein()));
+        assertTrue("I".equals(new RNA("AUU").rnaToProtein()));
+        assertTrue("V".equals(new RNA("GUU").rnaToProtein()));
+        assertTrue("F".equals(new RNA("UUC").rnaToProtein()));
+        assertTrue("L".equals(new RNA("CUC").rnaToProtein()));
+        assertTrue("I".equals(new RNA("AUC").rnaToProtein()));
+        assertTrue("V".equals(new RNA("GUC").rnaToProtein()));
+        assertTrue("L".equals(new RNA("UUA").rnaToProtein()));
+        assertTrue("L".equals(new RNA("CUA").rnaToProtein()));
+        assertTrue("I".equals(new RNA("AUA").rnaToProtein()));
+        assertTrue("V".equals(new RNA("GUA").rnaToProtein()));
+        assertTrue("L".equals(new RNA("UUG").rnaToProtein()));
+        assertTrue("L".equals(new RNA("CUG").rnaToProtein()));
+        
+//        lhm.put("AUG", "M");
+//        lhm.put("GUG", "V");
+//        lhm.put("UCU", "S");
+//        lhm.put("CCU", "P");
+//        lhm.put("ACU", "T");
+//        lhm.put("GCU", "A");
+//        lhm.put("UCC", "S");
+//        lhm.put("CCC", "P");
+//        lhm.put("ACC", "T");
+//        lhm.put("GCC", "A");
+//        lhm.put("UCA", "S");
+//        lhm.put("CCA", "P");
+//        lhm.put("ACA", "T");
+//        lhm.put("GCA", "A");
+//        lhm.put("UCG", "S");
+//        lhm.put("CCG", "P");
+//        lhm.put("ACG", "T");
+//        lhm.put("GCG", "A");
+//        lhm.put("UAU", "Y");
+//        lhm.put("CAU", "H");
+//        lhm.put("AAU", "N");
+//        lhm.put("GAU", "D");
+//        lhm.put("UAC", "Y");
+//        lhm.put("CAC", "H");
+//        lhm.put("AAC", "N");
+//        lhm.put("GAC", "D");
+//        lhm.put("UAA", "Stop");
+//        lhm.put("CAA", "Q");
+//        lhm.put("AAA", "K");
+//        lhm.put("GAA", "E");
+//        lhm.put("UAG", "Stop");
+//        lhm.put("CAG", "Q");
+//        lhm.put("AAG", "K");
+//        lhm.put("GAG", "E");
+//        lhm.put("UGU", "C");
+//        lhm.put("CGU", "R");
+//        lhm.put("AGU", "S");
+//        lhm.put("GGU", "G");
+//        lhm.put("UGC", "C");
+//        lhm.put("CGC", "R");
+//        lhm.put("AGC", "S");
+//        lhm.put("GGC", "G");
+//        lhm.put("UGA", "Stop");
+//        lhm.put("CGA", "R");
+//        lhm.put("AGA", "R");
+//        lhm.put("GGA", "G");
+//        lhm.put("UGG", "W");
+//        lhm.put("CGG", "R");
+//        lhm.put("AGG", "R");
+//        lhm.put("GGG", "G");
+    }
 }
