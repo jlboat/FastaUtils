@@ -5,6 +5,7 @@
  */
 package com.github.jlboat.fastautils;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,7 +43,7 @@ public class DNATest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        //System.out.println("toString");
         DNA instance = new DNA("AAAACCCGTT--N");
         String expResult = "AAAACCCGTT--N";
         String result = instance.toString();
@@ -56,7 +57,7 @@ public class DNATest {
      */
     @Test
     public void testGetKmers(){
-        System.out.println("getKmers");
+        //System.out.println("getKmers");
         DNA instance = new DNA("AAAACCCGTT--N");
         String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
         "CCG","CGT","GTT","TT-","T--","--N"};
@@ -69,11 +70,14 @@ public class DNATest {
      */
     @Test
     public void testGetNucleotideCount() {
-        System.out.println("getNucleotideCount");
+        //System.out.println("getNucleotideCount");
         DNA instance = new DNA("AAAACCCGTT--N");
+        DNA lower = new DNA("aaaacccgtt--ni");
         int[] expResult = {4,3,1,2,1,2,0};
+        int[] lowerResult = {4,3,1,2,1,2,1};
         int[] result = instance.getNucleotideCount();
         assertArrayEquals(expResult, result);
+        assertArrayEquals(lowerResult, lower.getNucleotideCount());
     }
 
     /**
@@ -81,7 +85,7 @@ public class DNATest {
      */
     @Test
     public void testGetPercGC() {
-        System.out.println("getPercGC");
+        //System.out.println("getPercGC");
         DNA instance = new DNA("ACAACCCGTTC-NG");
         double expResult = 0.5;
         double result = instance.getPercGC();
@@ -93,7 +97,7 @@ public class DNATest {
      */
     @Test
     public void testLength() {
-        System.out.println("length");
+        //System.out.println("length");
         DNA instance = new DNA("ACAACCCGTTC-NG");
         int expResult = 14;
         int result = instance.length();
@@ -105,11 +109,13 @@ public class DNATest {
      */
     @Test
     public void testIsAmbiguous() {
-        System.out.println("isAmbiguous");
+        //System.out.println("isAmbiguous");
         DNA instance = new DNA("AAAACCCGTT--N");
+        DNA bad = new DNA("GCHGIJL");
         boolean expResult = false;
         boolean result = instance.isAmbiguous();
         assertEquals(expResult, result);
+        assertEquals(true, bad.isAmbiguous());
     }
 
     /**
@@ -117,22 +123,38 @@ public class DNATest {
      */
     @Test
     public void testReverseComplement() {
-        System.out.println("reverseComplement");
+        //System.out.println("reverseComplement");
         DNA instance = new DNA("AAAACCCGTT--N");
+        DNA lower = new DNA("aaaacccgtt--nI");
         String expResult = "N--AACGGGTTTT";
+        String lowerResult = "In--AACGGGTTTT";
         String result = instance.reverseComplement();
         assertEquals(expResult, result);
+        assertEquals(lowerResult, lower.reverseComplement());
     }
     
-        /**
+    /**
      * Test of length method, of class DNA.
      */
     @Test
     public void testTranscribe() {
-        System.out.println("length");
+        //System.out.println("length");
         DNA instance = new DNA("ACAttCCGTTC-NG");
         String expResult = "ACAuuCCGUUC-NG";
         String result = instance.transcribe();
         assertEquals(expResult, result);
+    }
+    
+    /** 
+     * Test of Sequence.containsMotif()
+     */
+    @Test
+    public void testContainsMotif(){
+        DNA instance = new DNA("AAAACCCGTT--N");
+        ArrayList indices = instance.containsMotif("AAA");
+        ArrayList answer = new ArrayList();
+        answer.add(0);
+        answer.add(1);
+        assertEquals(indices, answer);
     }
 }

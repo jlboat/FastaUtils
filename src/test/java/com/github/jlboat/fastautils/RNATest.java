@@ -42,7 +42,7 @@ public class RNATest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        //System.out.println("toString");
         RNA instance = new RNA("AAAACCCGUU--N");
         String expResult = "AAAACCCGUU--N";
         String result = instance.toString();
@@ -54,7 +54,7 @@ public class RNATest {
      */
     @Test
     public void testGetKmers(){
-        System.out.println("getKmers");
+        //System.out.println("getKmers");
         DNA instance = new DNA("AAAACCCGUU--N");
         String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
         "CCG","CGU","GUU","UU-","U--","--N"};
@@ -67,11 +67,14 @@ public class RNATest {
      */
     @Test
     public void testGetNucleotideCount() {
-        System.out.println("getNucleotideCount");
+        //System.out.println("getNucleotideCount");
         RNA instance = new RNA("AAAACCCGUU--N");
+        RNA lower = new RNA("aaaacccguu--ni");
         int[] expResult = {4,3,1,2,1,2,0};
+        int[] lowerResult = {4,3,1,2,1,2,1};
         int[] result = instance.getNucleotideCount();
         assertArrayEquals(expResult, result);
+        assertArrayEquals(lowerResult, lower.getNucleotideCount());
     }
 
     /**
@@ -79,7 +82,7 @@ public class RNATest {
      */
     @Test
     public void testGetPercGC() {
-        System.out.println("getPercGC");
+        //System.out.println("getPercGC");
         RNA instance = new RNA("ACAACCCGUUC-NG");
         double expResult = 0.5;
         double result = instance.getPercGC();
@@ -91,7 +94,7 @@ public class RNATest {
      */
     @Test
     public void testLength() {
-        System.out.println("length");
+        //System.out.println("length");
         RNA instance = new RNA("ACAACCCGUUC-NG");
         int expResult = 14;
         int result = instance.length();
@@ -103,11 +106,13 @@ public class RNATest {
      */
     @Test
     public void testIsAmbiguous() {
-        System.out.println("isAmbiguous");
+        //System.out.println("isAmbiguous");
         RNA instance = new RNA("AAAACCCGUU--N");
+        RNA bad = new RNA("GCHGIJL");
         boolean expResult = false;
         boolean result = instance.isAmbiguous();
         assertEquals(expResult, result);
+        assertEquals(true, bad.isAmbiguous());
     }
 
     /**
@@ -115,11 +120,14 @@ public class RNATest {
      */
     @Test
     public void testReverseComplement() {
-        System.out.println("reverseComplement");
+        //System.out.println("reverseComplement");
         RNA instance = new RNA("AAAACCCGUU--N");
+        RNA lower = new RNA("aaaacccguu--nI");
         String expResult = "N--AACGGGUUUU";
+        String lowerResult = "In--AACGGGUUUU";
         String result = instance.reverseComplement();
         assertEquals(expResult, result);
+        assertEquals(lowerResult, lower.reverseComplement());
     }
     
     /** 
