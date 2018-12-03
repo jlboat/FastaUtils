@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/jlboat/FastaUtils.png?branch=master)](https://travis-ci.com/jlboat/FastaUtils)
 [![codecov.io Code Coverage](https://img.shields.io/codecov/c/github/jlboat/FastaUtils.svg?maxAge=2592000)](https://codecov.io/github/jlboat/FastaUtils?branch=master)
+[![GitHub license](https://img.shields.io/github/license/jlboat/FastaUtils.svg)](https://github.com/jlboat/FastaUtils)
 [![issues](https://img.shields.io/github/issues/jlboat/FastaUtils.svg)](https://github.com/jlboat/FastaUtils/issues)
 
 ## Use
