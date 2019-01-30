@@ -4,6 +4,7 @@
 [![codecov.io Code Coverage](https://img.shields.io/codecov/c/github/jlboat/FastaUtils.svg?maxAge=2592000)](https://codecov.io/github/jlboat/FastaUtils?branch=master)
 [![GitHub license](https://img.shields.io/github/license/jlboat/FastaUtils.svg)](https://github.com/jlboat/FastaUtils)
 [![issues](https://img.shields.io/github/issues/jlboat/FastaUtils.svg)](https://github.com/jlboat/FastaUtils/issues)
+[![jitpack](https://jitpack.io/v/jlboat/FastaUtils.svg)](https://jitpack.io/#jlboat/FastaUtils)
 
 ## Use
 This package was designed to facilitate biological sequence manipulation.
@@ -14,6 +15,8 @@ git clone https://github.com/jlboat/FastaUtils
 cd FastaUtils
 mvn package
 ```
+
+Or see JitPack link above
 
 ## Examples (run in JShell)
 ### In terminal:
