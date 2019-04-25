@@ -30,6 +30,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.math3.distribution.PoissonDistribution;
+import tech.tablesaw.api.IntColumn;
+import tech.tablesaw.api.Table;
+import tech.tablesaw.columns.numbers.Stats;
+import tech.tablesaw.plotly.Plot;
+import tech.tablesaw.plotly.api.Histogram;
 
 /**
  *
@@ -39,6 +44,11 @@ public class FastaUtils {
 
     final private static Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static LinkedHashMap<String, Number> stats(Fasta fasta) {
         LinkedHashMap<String, Number> stats = new LinkedHashMap<>();
         stats.put("Count", seqCount(fasta));
@@ -49,12 +59,33 @@ public class FastaUtils {
         stats.put("N50", nX(fasta, 50));
         return stats;
     }
+    
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
+    public static Stats describe(Fasta fasta){
+        int[] lengths = seqLengths(fasta);
+        IntColumn nc = IntColumn.create("SeqLengths", lengths);
+        return nc.stats();
+    }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static int seqCount(Fasta fasta) {
         Set<String> keys = fasta.getKeys();
         return keys.size();
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static int[] seqLengths(Fasta fasta) {
         Sequence[] seqs = fasta.getValues().toArray(new Sequence[0]);
         int[] lengths = new int[seqs.length];
@@ -64,6 +95,12 @@ public class FastaUtils {
         return lengths;
     }
 
+    /**
+     * 
+     * @param fasta
+     * @param x
+     * @return 
+     */
     public static int nX(Fasta fasta, double x) {
         if ((x > 100) || (x < 0)) {
             LOGGER.log(Level.ERROR,
@@ -93,18 +130,33 @@ public class FastaUtils {
         return -1;
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static int minLength(Fasta fasta) {
         int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         return lengths[0];
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static int maxLength(Fasta fasta) {
         int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
         return lengths[lengths.length - 1];
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static double medianLength(Fasta fasta) {
         int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
@@ -117,12 +169,22 @@ public class FastaUtils {
         }
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static double meanLength(Fasta fasta) {
         int[] lengths = seqLengths(fasta);
         int total_length = baseCumulativeSum(fasta)[lengths.length - 1];
         return total_length / (double) lengths.length;
     }
 
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public static int[] baseCumulativeSum(Fasta fasta) {
         int[] lengths = seqLengths(fasta);
         Arrays.sort(lengths);
@@ -134,6 +196,12 @@ public class FastaUtils {
         return cum_sum;
     }
 
+    /**
+     * 
+     * @param number_seqs
+     * @param seq_lengths
+     * @return 
+     */
     public static Fasta randomFasta(int number_seqs, int seq_lengths) {
         PoissonDistribution pd = new PoissonDistribution((double) seq_lengths);
         LinkedHashMap<String, Sequence> lhm = new LinkedHashMap<>();
@@ -143,5 +211,16 @@ public class FastaUtils {
             lhm.put(key, dna);
         }
         return new Fasta(lhm);
+    }
+    
+    /**
+     * 
+     * @param fasta 
+     */
+    public static void generateHistogram(Fasta fasta){
+        int[] lengths = seqLengths(fasta);
+        IntColumn nc = IntColumn.create("SeqLengths", lengths);
+        Table table = Table.create("FastaTable").addColumns(nc);
+        Plot.show(Histogram.create("Sequence lengths", table, "SeqLengths"));
     }
 }

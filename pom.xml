@@ -36,6 +36,16 @@
             <version>2.11.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>tech.tablesaw</groupId>
+            <artifactId>tablesaw-core</artifactId>
+            <version>0.32.6</version>
+        </dependency>
+        <dependency>
+            <groupId>tech.tablesaw</groupId>
+            <artifactId>tablesaw-jsplot</artifactId>
+            <version>0.32.6</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

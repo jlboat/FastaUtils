@@ -1,7 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2018 J. Lucas Boatwright.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package com.github.jlboat.fastautils;
 
@@ -14,6 +32,10 @@ public class DNA extends Sequence {
         super(sequence);
     }    
     
+    /**
+     * 
+     * @return boolean indicating whether sequence contains ambiguous nucleotides
+     */
     @Override
     public boolean isAmbiguous(){
         return this.getNucleotideCount()[6] != 0;
@@ -48,7 +70,7 @@ public class DNA extends Sequence {
         return counts;
     }// end getNucleotideCount method
     
-        /**
+    /**
      * Returns the percent GC of the sequence
      * @return double percent GC in sequence
      */
@@ -61,7 +83,7 @@ public class DNA extends Sequence {
         return (nuc_count[1]+nuc_count[2])/total;
     }// end getPercGC method
     
-        /**
+    /**
      * 
      * @return String reverse complement of the sequence
      */
@@ -88,6 +110,10 @@ public class DNA extends Sequence {
         return String.valueOf(revComp);
     }// end reverseComplement method
     
+    /**
+     * 
+     * @return String representation of RNA from DNA sequence
+     */
     public String transcribe(){        
         return this.sequence.replace('T', 'U').replace('t', 'u');
     }

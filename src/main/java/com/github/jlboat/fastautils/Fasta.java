@@ -87,6 +87,11 @@ public class Fasta {
         return seq;
     }
     
+    /**
+     * 
+     * @param fasta
+     * @return 
+     */
     public boolean equals(Fasta fasta){
         boolean header = this.getKeys().equals(fasta.getKeys());
         boolean seq_same = true;
@@ -99,6 +104,10 @@ public class Fasta {
         return header & seq_same;
     }
     
+    /**
+     * 
+     * @throws IOException 
+     */
     private void parse() throws IOException{
         logger.log(Level.INFO, "Parsing FASTA");
         Object[] file = Files.lines(Paths.get(this.filename)).toArray();
@@ -177,6 +186,11 @@ public class Fasta {
 
     }// end toFile method
     
+    /**
+     * Writes Fasta to outfile name
+     * 
+     * @param outfile 
+     */
     public void toFile(String outfile){
         this.toFile(outfile, 0);
     }

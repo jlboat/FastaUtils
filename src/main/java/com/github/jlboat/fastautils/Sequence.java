@@ -35,10 +35,18 @@ import java.util.regex.Matcher;
 public abstract class Sequence {
     String sequence = "";
     
+    /**
+     * 
+     * @param sequence 
+     */
     public Sequence(String sequence){
         this.sequence = sequence;
     }// end construtor
     
+    /**
+     * 
+     * @return 
+     */
     @Override
     public String toString(){
         return this.sequence;
@@ -60,10 +68,20 @@ public abstract class Sequence {
         return this.sequence.length();
     }
     
+    /**
+     * 
+     * @param seq
+     * @return 
+     */
     public boolean equals(Sequence seq){
         return this.sequence.equals(seq.sequence);
     }
     
+    /**
+     * 
+     * @param kmer_length
+     * @return 
+     */
     public String[] getKmers(int kmer_length){   
         int total_kmers = this.sequence.length() - kmer_length + 1;
         String[] kmers = new String[total_kmers];
