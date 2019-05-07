@@ -56,7 +56,7 @@ public abstract class Sequence {
      * Check to see if sequence contains non [ACTGN-] characters
      * Or, for protein, non-standard amino acids
      * 
-     * @return boolean whether sequence contains ambiguous codes
+     * @return Boolean whether sequence contains ambiguous codes
      */
     public abstract boolean isAmbiguous();
     
@@ -82,13 +82,13 @@ public abstract class Sequence {
      * @param kmer_length
      * @return 
      */
-    public String[] getKmers(int kmer_length){   
+    public ArrayList<String> getKmers(int kmer_length){   
         int total_kmers = this.sequence.length() - kmer_length + 1;
-        String[] kmers = new String[total_kmers];
+        ArrayList<String> kmers = new ArrayList<>(total_kmers);
         char[] seq = this.sequence.toCharArray();
         for (int i = 0; i < total_kmers; i++) {
             char[] kmer_array = Arrays.copyOfRange(seq, i, i+kmer_length);
-            kmers[i] = new String(kmer_array);
+            kmers.add(new String(kmer_array));
         }
         return kmers;
     }
@@ -104,9 +104,9 @@ public abstract class Sequence {
     public ArrayList containsMotif(String motif){
         ArrayList indices = new ArrayList();
         Pattern pattern = Pattern.compile(motif);
-        String[] kmers = getKmers(motif.length());
-        for (int i = 0; i < kmers.length; i++) {
-            String kmer = kmers[i];
+        ArrayList<String> kmers = getKmers(motif.length());
+        for (int i = 0; i < kmers.size(); i++) {
+            String kmer = kmers.get(i);
             Matcher matcher = pattern.matcher(kmer);
             if(matcher.matches()){
                 indices.add(i);

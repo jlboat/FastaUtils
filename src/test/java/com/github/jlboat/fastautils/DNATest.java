@@ -6,6 +6,7 @@
 package com.github.jlboat.fastautils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,10 +60,10 @@ public class DNATest {
     public void testGetKmers(){
         //System.out.println("getKmers");
         DNA instance = new DNA("AAAACCCGTT--N");
-        String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
-        "CCG","CGT","GTT","TT-","T--","--N"};
-        String[] result = instance.getKmers(3);
-        assertArrayEquals(expResult, result);
+        ArrayList<String> expResult = new ArrayList(Arrays.asList("AAA","AAA","AAC","ACC","CCC",
+        "CCG","CGT","GTT","TT-","T--","--N"));
+        ArrayList<String> result = instance.getKmers(3);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -73,11 +74,11 @@ public class DNATest {
         //System.out.println("getNucleotideCount");
         DNA instance = new DNA("AAAACCCGTT--N");
         DNA lower = new DNA("aaaacccgtt--ni");
-        int[] expResult = {4,3,1,2,1,2,0};
-        int[] lowerResult = {4,3,1,2,1,2,1};
-        int[] result = instance.getNucleotideCount();
-        assertArrayEquals(expResult, result);
-        assertArrayEquals(lowerResult, lower.getNucleotideCount());
+        ArrayList<Integer> expResult = new ArrayList<>(Arrays.asList(4,3,1,2,1,2,0));
+        ArrayList<Integer> lowerResult = new ArrayList<>(Arrays.asList(4,3,1,2,1,2,1));
+        ArrayList<Integer> result = instance.getNucleotideCount();
+        assertEquals(expResult, result);
+        assertEquals(lowerResult, lower.getNucleotideCount());
     }
 
     /**
@@ -112,9 +113,7 @@ public class DNATest {
         //System.out.println("isAmbiguous");
         DNA instance = new DNA("AAAACCCGTT--N");
         DNA bad = new DNA("GCHGIJL");
-        boolean expResult = false;
-        boolean result = instance.isAmbiguous();
-        assertEquals(expResult, result);
+        assertEquals(false, instance.isAmbiguous());
         assertEquals(true, bad.isAmbiguous());
     }
 

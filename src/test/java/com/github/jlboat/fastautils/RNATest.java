@@ -5,6 +5,8 @@
  */
 package com.github.jlboat.fastautils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -55,11 +57,11 @@ public class RNATest {
     @Test
     public void testGetKmers(){
         //System.out.println("getKmers");
-        DNA instance = new DNA("AAAACCCGUU--N");
-        String[] expResult = new String[]{"AAA","AAA","AAC","ACC","CCC",
-        "CCG","CGU","GUU","UU-","U--","--N"};
-        String[] result = instance.getKmers(3);
-        assertArrayEquals(expResult, result);
+        RNA instance = new RNA("AAAACCCGUU--N");
+        ArrayList<String> expResult = new ArrayList(Arrays.asList("AAA","AAA","AAC","ACC","CCC",
+        "CCG","CGU","GUU","UU-","U--","--N"));
+        ArrayList<String> result = instance.getKmers(3);
+        assertEquals(expResult, result);
     }
     
     /**
@@ -70,11 +72,11 @@ public class RNATest {
         //System.out.println("getNucleotideCount");
         RNA instance = new RNA("AAAACCCGUU--N");
         RNA lower = new RNA("aaaacccguu--ni");
-        int[] expResult = {4,3,1,2,1,2,0};
-        int[] lowerResult = {4,3,1,2,1,2,1};
-        int[] result = instance.getNucleotideCount();
-        assertArrayEquals(expResult, result);
-        assertArrayEquals(lowerResult, lower.getNucleotideCount());
+        ArrayList<Integer> expResult = new ArrayList<>(Arrays.asList(4,3,1,2,1,2,0));
+        ArrayList<Integer> lowerResult = new ArrayList<>(Arrays.asList(4,3,1,2,1,2,1));
+        ArrayList<Integer> result = instance.getNucleotideCount();
+        assertEquals(expResult, result);
+        assertEquals(lowerResult, lower.getNucleotideCount());
     }
 
     /**
@@ -109,9 +111,7 @@ public class RNATest {
         //System.out.println("isAmbiguous");
         RNA instance = new RNA("AAAACCCGUU--N");
         RNA bad = new RNA("GCHGIJL");
-        boolean expResult = false;
-        boolean result = instance.isAmbiguous();
-        assertEquals(expResult, result);
+        assertEquals(false, instance.isAmbiguous());
         assertEquals(true, bad.isAmbiguous());
     }
 

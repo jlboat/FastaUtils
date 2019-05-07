@@ -43,7 +43,7 @@ import tech.tablesaw.plotly.api.Histogram;
 public class FastaUtils {
 
     final private static Logger LOGGER = LogManager.getLogger();
-
+    
     /**
      * 
      * @param fasta

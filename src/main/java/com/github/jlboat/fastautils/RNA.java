@@ -24,6 +24,7 @@
 package com.github.jlboat.fastautils;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -41,7 +42,7 @@ public class RNA extends Sequence {
      */
     @Override
     public boolean isAmbiguous(){
-        return this.getNucleotideCount()[6] != 0;
+        return this.getNucleotideCount().get(6) != 0;
     }// end isAmbiguous method
     
     /**
@@ -50,25 +51,33 @@ public class RNA extends Sequence {
      * 
      * @return integer array with [A,C,G,T,N,-,other] counts
      */
-    public int[] getNucleotideCount(){
+    public ArrayList<Integer> getNucleotideCount(){
         char[] string = this.sequence.toCharArray();
-        int[] counts = new int[7];
+        ArrayList<Integer> counts = new ArrayList<>(7);
+        while(counts.size() < 7) counts.add(0);
         for (char nucleotide: string){
-            if ((nucleotide == 'A') || (nucleotide == 'a')){
-                counts[0] += 1;
-            } else if ((nucleotide == 'C') || (nucleotide == 'c')){
-                counts[1] += 1;
-            } else if ((nucleotide == 'G') || (nucleotide == 'g')){
-                counts[2] += 1;
-            } else if ((nucleotide == 'U') || (nucleotide == 'u')){
-                counts[3] += 1;
-            } else if ((nucleotide == 'N') || (nucleotide == 'n')){
-                counts[4] += 1;
-            } else if (nucleotide == '-'){
-                counts[5] += 1;
-            } else{
-                counts[6] += 1;
-            }// end if-else
+            switch (Character.toUpperCase(nucleotide)) {
+                case 'A':
+                    counts.set(0, counts.get(0) + 1);
+                    break;
+                case 'C':
+                    counts.set(1, counts.get(1) + 1);
+                    break;
+                case 'G':
+                    counts.set(2, counts.get(2) + 1);
+                    break;
+                case 'U':
+                    counts.set(3, counts.get(3) + 1);
+                    break;
+                case 'N':
+                    counts.set(4, counts.get(4) + 1);
+                    break;
+                case '-':
+                    counts.set(5, counts.get(5) + 1);
+                    break;                
+                default:
+                    counts.set(6, counts.get(6) + 1);
+            }// end switch
         }// end for
         return counts;
     }// end getNucleotideCount method
@@ -78,12 +87,12 @@ public class RNA extends Sequence {
      * @return double percent GC in sequence
      */
     public double getPercGC(){
-        int[] nuc_count = this.getNucleotideCount();
+        ArrayList<Integer> nuc_count = this.getNucleotideCount();
         double total = 0;
         for (int count: nuc_count){
             total += count;
         }// end for
-        return (nuc_count[1]+nuc_count[2])/total;
+        return (nuc_count.get(1)+nuc_count.get(2))/total;
     }// end getPercGC method
     
     /**

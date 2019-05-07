@@ -246,9 +246,9 @@ public class Fasta {
         int[] nucleotides = new int[7];
         this.lhm.values().forEach((seq) -> {
             if ("RNA".equals(seq_type)){
-                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((RNA)seq).getNucleotideCount()[i]);
+                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((RNA)seq).getNucleotideCount().get(i));
             } else if ("DNA".equals(seq_type)){
-                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((DNA)seq).getNucleotideCount()[i]);
+                Arrays.setAll(nucleotides, i -> nucleotides[i] + ((DNA)seq).getNucleotideCount().get(i));
             }
         }); // end for
         return nucleotides[6] != 0;
